@@ -1,26 +1,31 @@
 const gameBoard = (() => {
-  let board = ["X", "O", "O", "X", "X", "X", "O", "O", "X"];
+  let board = ["X", "", "O", "X", "X", "X", "O", "O", "X"];
 
-  return { board };
+  const makeMark = (index, symbol) => {
+    board[index] = symbol;
+  };
+
+  const clearBoard = () => {
+    board.fill(null);
+  };
+
+  return { board, makeMark, clearBoard };
 })();
 
-console.log(gameBoard.board);
-
-const playerFactory = (name, symbol) => {
-  return { name, symbol };
+const player = (symbol) => {
+  return { symbol };
 };
 
-const displayController = ((board) => {
+const displayController = (() => {
   let cells = document.querySelectorAll(".cell");
 
   const populateCells = () => {
     cells.forEach((cell, index) => {
-      cell.textContent = board[index];
+      cell.textContent = gameBoard.board[index];
     });
-    console.log(cells.length);
   };
 
   return { populateCells };
-})(gameBoard.board);
+})();
 
 displayController.populateCells();
