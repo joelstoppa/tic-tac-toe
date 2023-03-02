@@ -3,3 +3,7 @@ const gameBoard = () => {
 
   return { board };
 };
+
+const playerFactory = (name, symbol) => {
+  return { name, symbol };
+};
