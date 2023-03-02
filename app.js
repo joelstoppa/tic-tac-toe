@@ -2,7 +2,11 @@ const gameBoard = (() => {
   let board = ["", "", "", "", "", "", "", "", ""];
 
   const makeMark = (index, symbol) => {
-    board[index] = symbol;
+    if (board[index] === "") {
+      board[index] = symbol;
+    } else {
+      playGame.changeCurrentPlayer();
+    }
   };
 
   const clearBoard = () => {
@@ -55,7 +59,7 @@ const playGame = (() => {
     displayController.populateCells();
     changeCurrentPlayer();
   };
-  return { playMove, currentPlayer };
+  return { playMove, changeCurrentPlayer };
 })();
 
 displayController.addClickListener();
