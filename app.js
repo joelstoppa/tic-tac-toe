@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-  let board = ["X", "", "O", "X", "X", "X", "O", "O", "X"];
+  let board = ["", "", "", "", "", "", "", "", ""];
 
   const makeMark = (index, symbol) => {
     board[index] = symbol;
@@ -25,7 +25,15 @@ const displayController = (() => {
     });
   };
 
-  return { populateCells };
+  const addClickListener = () => {
+    cells.forEach((cell, index) => {
+      cell.addEventListener("click", () => {
+        playGame.playMove(index);
+      });
+    });
+  };
+
+  return { populateCells, addClickListener };
 })();
 
 const playGame = (() => {
@@ -41,6 +49,13 @@ const playGame = (() => {
       currentPlayer = player1;
     }
   };
+
+  const playMove = (index) => {
+    gameBoard.makeMark(index, currentPlayer.symbol);
+    displayController.populateCells();
+    changeCurrentPlayer();
+  };
+  return { playMove, currentPlayer };
 })();
 
-displayController.populateCells();
+displayController.addClickListener();
