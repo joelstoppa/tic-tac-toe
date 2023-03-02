@@ -8,4 +8,6 @@
 
 .cell {
     border: 1px solid black;
+    font-size: 90px;
+    color: black;
 }
