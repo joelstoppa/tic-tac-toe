@@ -28,4 +28,19 @@ const displayController = (() => {
   return { populateCells };
 })();
 
+const playGame = (() => {
+  const player1 = player("X");
+  const player2 = player("O");
+
+  let currentPlayer = player1;
+
+  const changeCurrentPlayer = () => {
+    if (currentPlayer === player1) {
+      currentPlayer = player2;
+    } else {
+      currentPlayer = player1;
+    }
+  };
+})();
+
 displayController.populateCells();
