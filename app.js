@@ -65,7 +65,7 @@ const displayController = (() => {
       cell.addEventListener("click", () => {
         playGame.playMove(index);
         playGame.isGameOver();
-        console.log(gameBoard.makeBoardSubArray());
+        playGame.checkWin();
       });
     });
   };
@@ -78,6 +78,10 @@ const playGame = (() => {
   const player2 = player("O");
 
   let currentPlayer = player1;
+
+  const getCurrentPlayer = () => {
+    return currentPlayer;
+  };
 
   const changeCurrentPlayer = () => {
     if (currentPlayer === player1) {
@@ -103,12 +107,26 @@ const playGame = (() => {
     }
   };
 
+  const checkWin = () => {
+    let arrayOfSub = gameBoard.makeBoardSubArray();
+
+    if (
+      arrayOfSub.some((sub) =>
+        sub.every((val) => val === sub[0] && val != null)
+      )
+    ) {
+      changeCurrentPlayer();
+      console.log(`${playGame.getCurrentPlayer().symbol} has won`);
+    }
+  };
+
   return {
     playMove,
     changeCurrentPlayer,
+    getCurrentPlayer,
     isGameOver,
+    checkWin,
   };
 })();
 
 displayController.addClickListener();
-displayController.populateCells();
