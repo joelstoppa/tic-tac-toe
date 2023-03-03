@@ -13,7 +13,38 @@ const gameBoard = (() => {
     board.fill(null);
   };
 
-  return { board, makeMark, clearBoard };
+  // Split gameBoard.board in sub arrays
+
+  const makeBoardSubArray = () => {
+    let row1 = gameBoard.board.slice(0, 3);
+    let row2 = gameBoard.board.slice(3, 6);
+    let row3 = gameBoard.board.slice(6, 9);
+    const columnIndex1 = [0, 3, 6];
+    let column1 = columnIndex1.map((i) => gameBoard.board[i]);
+    const columnIndex2 = [1, 4, 7];
+    let column2 = columnIndex2.map((i) => gameBoard.board[i]);
+    const columnIndex3 = [2, 5, 8];
+    let column3 = columnIndex3.map((i) => gameBoard.board[i]);
+    const diagonalIndex1 = [0, 4, 8];
+    let diagonal1 = diagonalIndex1.map((i) => gameBoard.board[i]);
+    const diagonalIndex2 = [6, 4, 2];
+    let diagonal2 = diagonalIndex2.map((i) => gameBoard.board[i]);
+
+    let arrayOfSub = [
+      row1,
+      row2,
+      row3,
+      column1,
+      column2,
+      column3,
+      diagonal1,
+      diagonal2,
+    ];
+
+    return arrayOfSub;
+  };
+
+  return { board, makeMark, clearBoard, makeBoardSubArray };
 })();
 
 const player = (symbol) => {
@@ -33,6 +64,8 @@ const displayController = (() => {
     cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
         playGame.playMove(index);
+        playGame.isGameOver();
+        console.log(gameBoard.makeBoardSubArray());
       });
     });
   };
@@ -45,21 +78,6 @@ const playGame = (() => {
   const player2 = player("O");
 
   let currentPlayer = player1;
-
-  // Split gameBoard.board in sub arrays
-  let row1 = gameBoard.board.slice(0, 3);
-  let row2 = gameBoard.board.slice(3, 6);
-  let row3 = gameBoard.board.slice(6, 9);
-  const columnIndex1 = [0, 3, 6];
-  let column1 = columnIndex1.map((i) => gameBoard.board[i]);
-  const columnIndex2 = [1, 4, 7];
-  let column2 = columnIndex2.map((i) => gameBoard.board[i]);
-  const columnIndex3 = [2, 5, 8];
-  let column3 = columnIndex3.map((i) => gameBoard.board[i]);
-  const diagonalIndex1 = [0, 4, 8];
-  let diagonal1 = diagonalIndex1.map((i) => gameBoard.board[i]);
-  const diagonalIndex2 = [6, 4, 2];
-  let diagonal2 = diagonalIndex2.map((i) => gameBoard.board[i]);
 
   const changeCurrentPlayer = () => {
     if (currentPlayer === player1) {
@@ -74,7 +92,22 @@ const playGame = (() => {
     displayController.populateCells();
     changeCurrentPlayer();
   };
-  return { playMove, changeCurrentPlayer };
+
+  const isGameOver = () => {
+    if (gameBoard.board.includes(null)) {
+      console.log("Game is not over");
+      return false;
+    } else {
+      console.log("Game is over");
+      return true;
+    }
+  };
+
+  return {
+    playMove,
+    changeCurrentPlayer,
+    isGameOver,
+  };
 })();
 
 displayController.addClickListener();
