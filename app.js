@@ -1,8 +1,8 @@
 const gameBoard = (() => {
-  let board = ["X", "X", "X", "O", "O", "O", "X", "X", "O"];
+  let board = [null, null, null, null, null, null, null, null, null];
 
   const makeMark = (index, symbol) => {
-    if (board[index] === "") {
+    if (board[index] === null) {
       board[index] = symbol;
     } else {
       playGame.changeCurrentPlayer();
@@ -46,10 +46,10 @@ const playGame = (() => {
 
   let currentPlayer = player1;
 
+  // Split gameBoard.board in sub arrays
   let row1 = gameBoard.board.slice(0, 3);
   let row2 = gameBoard.board.slice(3, 6);
   let row3 = gameBoard.board.slice(6, 9);
-
   const columnIndex1 = [0, 3, 6];
   let column1 = columnIndex1.map((i) => gameBoard.board[i]);
   const columnIndex2 = [1, 4, 7];
