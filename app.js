@@ -53,6 +53,7 @@ const player = (symbol) => {
 
 const displayController = (() => {
   let cells = document.querySelectorAll(".cell");
+  let resultDiv = document.querySelector("#resultDiv");
 
   const populateCells = () => {
     cells.forEach((cell, index) => {
@@ -72,7 +73,7 @@ const displayController = (() => {
     });
   };
 
-  return { populateCells, addClickListener };
+  return { populateCells, addClickListener, resultDiv };
 })();
 
 const playGame = (() => {
@@ -101,7 +102,7 @@ const playGame = (() => {
 
   const checkDraw = () => {
     if (!gameBoard.board.includes(null)) {
-      console.log("Game is a draw");
+      displayController.resultDiv.textContent = "Game is a draw";
       return true;
     }
   };
@@ -115,16 +116,16 @@ const playGame = (() => {
       )
     ) {
       changeCurrentPlayer();
-      console.log(`${playGame.getCurrentPlayer().symbol} has won`);
+      displayController.resultDiv.textContent = `${
+        playGame.getCurrentPlayer().symbol
+      } has won`;
       gameOver();
-    } else {
-      return false;
     }
   };
 
   const gameOver = () => {
     gameBoard.clearBoard();
-    console.log("Want to play again?");
+    displayController.resultDiv.textContent += " ,want to play again?";
   };
 
   return {
