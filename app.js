@@ -60,13 +60,15 @@ const displayController = (() => {
     });
   };
 
+  const clickFunction = (index) => {
+    playGame.playMove(index);
+    playGame.checkDraw();
+    playGame.checkWin();
+  };
+
   const addClickListener = () => {
     cells.forEach((cell, index) => {
-      cell.addEventListener("click", () => {
-        playGame.playMove(index);
-        playGame.isGameOver();
-        playGame.checkWin();
-      });
+      cell.addEventListener("click", () => clickFunction(index));
     });
   };
 
@@ -97,12 +99,9 @@ const playGame = (() => {
     changeCurrentPlayer();
   };
 
-  const isGameOver = () => {
-    if (gameBoard.board.includes(null)) {
-      console.log("Game is not over");
-      return false;
-    } else {
-      console.log("Game is over");
+  const checkDraw = () => {
+    if (!gameBoard.board.includes(null)) {
+      console.log("Game is a draw");
       return true;
     }
   };
@@ -117,14 +116,22 @@ const playGame = (() => {
     ) {
       changeCurrentPlayer();
       console.log(`${playGame.getCurrentPlayer().symbol} has won`);
+      gameOver();
+    } else {
+      return false;
     }
+  };
+
+  const gameOver = () => {
+    gameBoard.clearBoard();
+    console.log("Want to play again?");
   };
 
   return {
     playMove,
     changeCurrentPlayer,
     getCurrentPlayer,
-    isGameOver,
+    checkDraw,
     checkWin,
   };
 })();
