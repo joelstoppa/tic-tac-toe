@@ -53,6 +53,7 @@ const player = (symbol) => {
 
 const displayController = (() => {
   let cells = document.querySelectorAll(".cell");
+  let resultContainer = document.querySelector("#resultContainer");
   let resultDiv = document.querySelector("#resultDiv");
 
   const populateCells = () => {
@@ -73,7 +74,7 @@ const displayController = (() => {
     });
   };
 
-  return { populateCells, addClickListener, resultDiv };
+  return { populateCells, addClickListener, resultDiv, resultContainer };
 })();
 
 const playGame = (() => {
@@ -103,7 +104,7 @@ const playGame = (() => {
   const checkDraw = () => {
     if (!gameBoard.board.includes(null)) {
       displayController.resultDiv.textContent = "Game is a draw";
-      return true;
+      gameOver();
     }
   };
 
@@ -124,8 +125,14 @@ const playGame = (() => {
   };
 
   const gameOver = () => {
-    gameBoard.clearBoard();
+    displayController.resultContainer.style.display = "flex";
     displayController.resultDiv.textContent += " ,want to play again?";
+  };
+
+  const newGame = () => {
+    gameBoard.clearBoard();
+    displayController.populateCells();
+    displayController.resultContainer.style.display = "none";
   };
 
   return {
@@ -134,6 +141,7 @@ const playGame = (() => {
     getCurrentPlayer,
     checkDraw,
     checkWin,
+    newGame,
   };
 })();
 
