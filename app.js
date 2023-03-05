@@ -59,6 +59,9 @@ const displayController = (() => {
   const populateCells = () => {
     cells.forEach((cell, index) => {
       cell.textContent = gameBoard.board[index];
+      if (cell.textContent === "O") {
+        cell.style.color = "red";
+      }
     });
   };
 
