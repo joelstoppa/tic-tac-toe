@@ -60,7 +60,9 @@ const displayController = (() => {
     cells.forEach((cell, index) => {
       cell.textContent = gameBoard.board[index];
       if (cell.textContent === "O") {
-        cell.style.color = "red";
+        cell.style.color = "var(--light-red)";
+      } else {
+        cell.style.color = "var(--dark-blue)";
       }
     });
   };
@@ -120,19 +122,20 @@ const playGame = (() => {
       )
     ) {
       changeCurrentPlayer();
-      displayController.resultDiv.textContent = `${
+      displayController.resultDiv.textContent = `Player "${
         playGame.getCurrentPlayer().symbol
-      } has won`;
+      }" has won`;
       gameOver();
     }
   };
 
   const gameOver = () => {
     displayController.resultContainer.style.display = "flex";
-    displayController.resultDiv.textContent += " ,want to play again?";
+    displayController.resultDiv.textContent += ", want to play again?";
   };
 
   const newGame = () => {
+    currentPlayer = player1;
     gameBoard.clearBoard();
     displayController.populateCells();
     displayController.resultContainer.style.display = "none";
