@@ -1,14 +1,65 @@
+:root {
+    --dark-blue: rgb(43, 45, 66);
+    --dark-grey : rgb(141, 153, 174);
+    --light-grey : rgb(237, 242, 244);
+    --light-red : rgb(239, 35, 60);
+    --dark-red : rgb(217, 4, 41);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+header {
+    height: 15vh;
+    background-color: var(--dark-blue);
+    color: var(--dark-red);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+main {
+    height: 80vh;
+    min-height: 700px;
+    background-color: var(--light-grey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    height: 5vh;
+    font-size: 25px;
+    background-color: var(--dark-blue);
+    color: var(--light-red);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+}
+
 #board {
     height: 600px;
     width: 600px;
-    border: 3px solid black;
+    border: 3px solid var(--dark-grey);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    position: fixed;
 }
 
 .cell {
-    border: 1px solid black;
+    font-family: 'Comfortaa', sans-serif;
+    border: 1px solid var(--dark-grey); 
+    font-weight: 900; 
     font-size: 90px;
     color: black;
     display: flex;
@@ -17,15 +68,49 @@
 }
 
 #resultContainer {
-    width: 600px;
-    height: 600px;
+    width: 605px;
+    height: 605px;
     display: none;
     flex-direction: column;
-    position: absolute;
-    top: 1%;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 16px;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    position: relative;
+    background: rgba(116, 116, 116, 0.15);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(4.7px);
     -webkit-backdrop-filter: blur(4.7px);
     border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+#resultDiv {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 43px;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#playAgainButton {
+  appearance: none;
+  background-color: var(--dark-blue);
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  min-height: 60px;
+  width: 200px;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+}
+
+
+#playAgainButton:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
